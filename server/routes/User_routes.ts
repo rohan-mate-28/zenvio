@@ -1,0 +1,10 @@
+import express from "express";
+import { getCurrentUser, login, logout, register, updateprofile } from "../controllers/auth_controller";
+import { isAunthicated } from "../middlewares/isAuthicated";
+const router=express.Router();
+router.post("/register",register);
+router.post("/login",login);
+router.post("/logout",isAunthicated,logout);
+router.put("/update",isAunthicated,updateprofile);
+router.get("/me",getCurrentUser);
+export default router;

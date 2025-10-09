@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  # ------------------------
+  # BACKEND SERVICE (Node.js API)
+  # ------------------------
+  backend:
+    build:
+      context: ./server           # Path to backend source code
+      dockerfile: Dockerfile      # Use the Dockerfile inside ./server
+    image: zenvio-backend:1st     # Name and tag of built backend image
+    container_name: zenvio-backend
+    restart: unless-stopped       # Auto-restart unless manually stopped
+    env_file:
+      - ./server/.env             # Load environment variables (Mongo URI, JWT, etc.)
+    ports:
+      - "5000:5000"               # Expose backend port
+    networks:
+      - zenvio-network            # Connect backend to shared app network
+
+  # ------------------------
+  # FRONTEND SERVICE (Next.js or React app)
+  # ------------------------
+  frontend:
+    build:
+      context: ./docs             # Path to your frontend folder (you named it 'docs')
+      dockerfile: Dockerfile      # Use the Dockerfile inside ./docs
+    image: zenvio-frontend:1st             # Name and tag of built frontend image
+    container_name: zenvio-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"               # Expose frontend port
+    depends_on:
+      - backend                   # Ensure backend starts first
+    networks:
+      - zenvio-network
+
+# ------------------------
+# NETWORK (shared between frontend & backend)
+# ------------------------
+networks:
+  zenvio-network:
+    driver: bridge                # Use a simple Docker bridge network
