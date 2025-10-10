@@ -8,7 +8,7 @@ services:
     build:
       context: ./server           # Path to backend source code
       dockerfile: Dockerfile      # Use the Dockerfile inside ./server
-    image: zenvio-backend:1st     # Name and tag of built backend image
+    image: zenvio-backend:latest     # Name and tag of built backend image
     container_name: zenvio-backend
     restart: unless-stopped       # Auto-restart unless manually stopped
     env_file:
@@ -23,9 +23,9 @@ services:
   # ------------------------
   frontend:
     build:
-      context: ./docs             # Path to your frontend folder (you named it 'docs')
+      context: ./frontend             # Path to your frontend folder (you named it 'docs')
       dockerfile: Dockerfile      # Use the Dockerfile inside ./docs
-    image: zenvio-frontend:1st             # Name and tag of built frontend image
+    image: zenvio:latest             # Name and tag of built frontend image
     container_name: zenvio-frontend
     restart: unless-stopped
     ports:

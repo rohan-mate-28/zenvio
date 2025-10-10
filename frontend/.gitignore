@@ -1,0 +1,62 @@
+# =========================================================
+# 🚀 Next.js + TypeScript Project
+# =========================================================
+
+# -------------------------------
+# Node dependencies
+# -------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# -------------------------------
+# Next.js build outputs
+# -------------------------------
+.next/
+out/
+build/
+dist/
+.cache/
+coverage/
+
+# -------------------------------
+# Environment files
+# -------------------------------
+.env
+.env*.local
+
+# -------------------------------
+# TypeScript
+# -------------------------------
+*.tsbuildinfo
+next-env.d.ts
+
+# -------------------------------
+# Logs
+# -------------------------------
+*.log
+logs/
+
+# -------------------------------
+# OS / Editor files
+# -------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# -------------------------------
+# Vercel deployment
+# -------------------------------
+.vercel/
+
+# -------------------------------
+# Docker (optional)
+# -------------------------------
+.dockerignore
+Dockerfile
+docker-compose.yml
