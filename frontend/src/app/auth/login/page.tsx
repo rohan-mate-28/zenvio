@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "@/store";
 import { loginUser, loadUser, loginWithToken, clearError } from "@/store/slices/authSlice";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-
+import dotenv from "dotenv";
 export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
@@ -110,6 +110,7 @@ export default function LoginPage() {
 
           {/* Google login */}
           <a
+            // href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/google`}
             href="http://localhost:5000/api/auth/google"
             className="w-full flex items-center justify-center gap-3 bg-white py-2.5 border border-gray-300 
                        rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition duration-150 shadow-sm"

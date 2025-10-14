@@ -14,7 +14,7 @@ const app=express();
 startMaintenanceCron();
 const port=process.env.PORT||5000;
 app.use(cors({
-  origin: "http://localhost:3000", // your frontend URL
+  origin: process.env.FRONTEND_URL, // your frontend URL
   credentials: true,               // allow cookies/auth headers
   allowedHeaders: ['Content-Type', 'Authorization'], // <--- FIX: This explicitly allows the Authorization header.
 }));

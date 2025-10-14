@@ -19,7 +19,7 @@ const app = (0, express_1.default)();
 (0, maintenanceCron_1.startMaintenanceCron)();
 const port = process.env.PORT || 5000;
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000", // your frontend URL
+    origin: process.env.FRONTEND_URL, // your frontend URL
     credentials: true, // allow cookies/auth headers
     allowedHeaders: ['Content-Type', 'Authorization'], // <--- FIX: This explicitly allows the Authorization header.
 }));

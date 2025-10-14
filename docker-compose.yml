@@ -28,6 +28,8 @@ services:
     image: zenvio:latest             # Name and tag of built frontend image
     container_name: zenvio-frontend
     restart: unless-stopped
+    env_file:
+      - ./frontend/.env  
     ports:
       - "3000:3000"               # Expose frontend port
     depends_on:

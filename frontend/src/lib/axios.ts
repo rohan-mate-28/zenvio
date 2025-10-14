@@ -1,9 +1,9 @@
 import axios from "axios";
-
+import dotenv from "dotenv";
 // Standard API instance: includes cookies (withCredentials: true)
 // Used for standard login/logout/loadUser where cookies are expected.
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",  
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api`,  
   withCredentials: true,
 });
 
@@ -33,7 +33,7 @@ API.interceptors.request.use(
 // New Token API instance: EXCLUDES cookies (withCredentials: false)
 // Used specifically for OAuth token validation, ensuring only the Bearer token is sent.
 export const TokenAPI = axios.create({
-  baseURL: "http://localhost:5000/api",  
+ baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api`,  
   withCredentials: false, 
 });
 
