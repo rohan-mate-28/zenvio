@@ -22,10 +22,10 @@ const generateTokenAndSetCookie = (
   res
     .status(200)
     .cookie("token", token, {
-     httpOnly: true,
-     sameSite: (process.env.COOKIE_SAMESITE as "none" | "lax" | "strict") || "lax",
-     secure: process.env.COOKIE_SECURE === "true",
-     maxAge: 7 * 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: process.env.NODE_ENV === "production",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 })
     .json({ success: true, message, token, user: userForResponse }); // Return user object excluding password
 };
@@ -114,14 +114,14 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
   try {
     // Check query parameter, Authorization header, or cookie
     const token = req.query.token || req.headers.authorization?.split(" ")[1] || req.cookies.token;
+    console.log("Token from cookie:", req.cookies.token);
+console.log("Token from header:", req.headers.authorization);
+console.log("Token from query:", req.query.token);
 
     if (!token || typeof token !== "string") {
       res.status(401).json({ message: "No token provided" });
       return;
     }
-    console.log("Token from cookie:", req.cookies.token);
-console.log("Token from header:", req.headers.authorization);
-console.log("Token from query:", req.query.token);
 
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
     // Find user, but exclude the password field
@@ -138,3 +138,4 @@ console.log("Token from query:", req.query.token);
     res.status(401).json({ message: "Invalid token" });
   }
 };
+
