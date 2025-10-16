@@ -21,13 +21,20 @@ export default function LoginPage() {
   useEffect(() => {
     dispatch(clearError());
     const token = searchParams?.get("token");
+    const isProd = process.env.NODE_ENV === "production";
 
     if (token) {
-      dispatch(loginWithToken(token)).finally(() => setIsInitialLoadFinished(true));
+      dispatch(loginWithToken(token))
+        .finally(() => {
+          // Set cookie for OAuth token if needed
+          document.cookie = `token=${token}; path=/; ${isProd ? "Secure; SameSite=None" : "SameSite=Lax"}`;
+          setIsInitialLoadFinished(true);
+        });
     } else {
       dispatch(loadUser()).finally(() => setIsInitialLoadFinished(true));
     }
   }, [dispatch, searchParams]);
+
 
   useEffect(() => {
     if (isAuthenticated && isInitialLoadFinished) {
@@ -47,7 +54,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-100 p-4">
       <div className="w-full max-w-md sm:max-w-lg mx-auto bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-gray-100 
                       transform transition-all duration-300 hover:shadow-2xl">
-        
+
         {/* Header */}
         <div className="text-center mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-indigo-600 mx-auto mb-3" viewBox="0 0 20 20" fill="currentColor">
@@ -110,14 +117,14 @@ export default function LoginPage() {
 
           {/* Google login */}
           <a
-           href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/google`}
-           className="w-full flex items-center justify-center gap-3 bg-white py-2.5 border border-gray-300 
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/google`}
+            className="w-full flex items-center justify-center gap-3 bg-white py-2.5 border border-gray-300 
                        rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition duration-150 shadow-sm"
           >
             <svg className="w-5 h-5" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#FFC107" d="M44.5 20H24V28H36.4C35.2 31.8 31.5 34.5 24 34.5..."/>
+              <path fill="#FFC107" d="M44.5 20H24V28H36.4C35.2 31.8 31.5 34.5 24 34.5..." />
             </svg>
-            Continue with Google
+            Continue with Googles
           </a>
 
           {displayError && (

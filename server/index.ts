@@ -15,29 +15,37 @@ import { startMaintenanceCron } from "./cron/maintenanceCron";
 
 const app = express();
 const port = Number(process.env.PORT) || 5000;
+
 // ✅ Start cron job
 startMaintenanceCron();
 
-// ✅ Parse comma-separated FRONTEND_URLS into an array
-const allowedOrigins = process.env.FRONTEND_URLS
-  ? process.env.FRONTEND_URLS.split(",").map((url) => url.trim())
-  : [];
-
+// ✅ Allow frontend origin
+const allowedOrigins =process.env.FRONTEND_URL;
 console.log("✅ Allowed CORS origins:", allowedOrigins);
 
-// ✅ Dynamic CORS setup
+// ✅ CORS setup
 app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
+// ✅ Preflight
+app.options("/", cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 
 // ✅ Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  console.log("Incoming request from origin:", req.headers.origin);
+  next();
+});
 
 // ✅ Routes
 app.use("/api/user", User_routes);
@@ -47,7 +55,6 @@ app.use("/api/payments", payment_routes);
 app.use("/api/auth", googleroutes);
 
 // ✅ Connect DB and start server
- 
 connectdb(() => {
   app.listen(port, "0.0.0.0", () => {
     console.log(`🚀 Server running on http://0.0.0.0:${port}`);
