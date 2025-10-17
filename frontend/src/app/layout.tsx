@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     "team management",
     "ZenVio",
   ],
-  metadataBase: new URL("https://yourdomain.com"), // replace with real domain
+  metadataBase: new URL("https://zenvioweb.in/"), // replace with real domain
   openGraph: {
     title: "ZenVio | Project Management App",
     description:
       "Manage your projects, clients, and payments all in one place with ZenVio.",
-    url: "https://yourdomain.com",
+    url: "https://zenvioweb.in",
     siteName: "ZenVio",
     images: [
       {

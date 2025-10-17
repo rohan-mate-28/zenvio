@@ -1,9 +1,8 @@
 "use client";
 
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhone } from "react-icons/fa";
 
 export default function Footer() {
-  // Define Quick Links data
   const quickLinks = [
     { name: "About Us", href: "#about" },
     { name: "Our Services", href: "#services" },
@@ -12,7 +11,6 @@ export default function Footer() {
     { name: "Start a Project", href: "#contact" },
   ];
 
-  // Define Social Links data
   const socialLinks = [
     { icon: FaFacebookF, href: "#", label: "Facebook" },
     { icon: FaTwitter, href: "#", label: "Twitter" },
@@ -21,28 +19,25 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300 py-16 mt-16 font-inter border-t border-gray-800 shadow-2xl">
+    <footer className="bg-gray-900 text-gray-300 py-16 font-inter border-t border-gray-800 shadow-2xl">
       <div className="max-w-7xl mx-auto px-6">
-        
-        {/* --- Main Grid Layout --- */}
+        {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-700 pb-12">
 
-          {/* Column 1: Company Info & Description (Spans 2 columns on medium screens) */}
+          {/* Company Info */}
           <div className="md:col-span-2 space-y-4">
-            <h3 className="text-4xl font-extrabold text-yellow-400 mb-4 tracking-wider">
-              ZenVio
-            </h3>
+            <h3 className="text-4xl font-extrabold text-yellow-400 mb-4 tracking-wider">ZenVio</h3>
             <p className="max-w-lg text-gray-400 leading-relaxed">
               We deliver premium web development services — crafting responsive, high-performance, and SEO-optimized digital solutions tailored to elevate your business.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex space-x-5 pt-4 text-2xl">
               {socialLinks.map((link, index) => (
-                <a 
-                  key={index} 
-                  href={link.href} 
-                  className="text-gray-500 hover:text-yellow-400 transition transform hover:scale-110 duration-300" 
+                <a
+                  key={index}
+                  href={link.href}
+                  className="text-gray-500 hover:text-yellow-400 transition transform hover:scale-110 duration-300"
                   aria-label={link.label}
                 >
                   <link.icon />
@@ -51,16 +46,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Quick Links */}
           <div>
             <h4 className="text-xl font-bold text-white mb-6 border-b-2 border-yellow-400 inline-block pb-1">
               Explore
             </h4>
             <nav className="space-y-3">
               {quickLinks.map((link, index) => (
-                <a 
-                  key={index} 
-                  href={link.href} 
+                <a
+                  key={index}
+                  href={link.href}
                   className="block text-gray-400 hover:text-yellow-400 transition duration-200 text-base"
                 >
                   {link.name}
@@ -69,7 +64,7 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Column 3: Contact Information */}
+          {/* Contact Info */}
           <div>
             <h4 className="text-xl font-bold text-white mb-6 border-b-2 border-yellow-400 inline-block pb-1">
               Contact Us
@@ -77,22 +72,21 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-400">
               <li className="flex items-start">
                 <FaEnvelope className="text-yellow-400 mr-3 mt-1 flex-shrink-0" size={16} />
-                <a href="mailto:info@zenvio.com" className="hover:text-yellow-400 transition">
+                <a href="mailto:contact.zenvio@gmail.com" className="hover:text-yellow-400 transition">
                   contact.zenvio@gmail.com
                 </a>
               </li>
               <li className="flex items-start">
                 <FaPhone className="text-yellow-400 mr-3 mt-1 flex-shrink-0" size={16} />
-                <a href="tel:+1234567890" className="hover:text-yellow-400 transition">
+                <a href="tel:+917387122435" className="hover:text-yellow-400 transition">
                   +91 73871 22435
                 </a>
               </li>
-               
             </ul>
           </div>
         </div>
 
-        {/* --- Footer Bottom: Copyright & Legal Links --- */}
+        {/* Footer Bottom */}
         <div className="pt-8 text-sm flex flex-col md:flex-row justify-between items-center text-gray-500">
           <p className="order-2 md:order-1 mt-4 md:mt-0">
             &copy; {new Date().getFullYear()} <span className="text-yellow-400 font-semibold">ZenVio</span>. All rights reserved.
@@ -104,9 +98,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* SEO Hidden Description (Kept for completeness) */}
+      {/* SEO Hidden Description */}
       <p className="sr-only">
-        ZenVio offers premium web development, design, SEO optimization, and custom digital solutions for businesses. Contact us for responsive websites, e-commerce, and enterprise platforms.
+        ZenVio offers premium web development, SEO optimization, and custom digital solutions for businesses. Contact us for responsive websites, e-commerce, and enterprise platforms.
       </p>
     </footer>
   );

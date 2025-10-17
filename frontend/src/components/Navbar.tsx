@@ -16,8 +16,7 @@ type NavItemProps = {
 };
 const NAV_LINKS = [
   { name: "Services", href: "/services" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 

@@ -6,7 +6,7 @@ import React from 'react';
 // --- CONFIGURATION ---
 // Customize these details for your company
 const COMPANY_NAME = "ZenVio Web Pack";
-const WEBSITE_URL = "https://www.zenvio.com"; // Change to your actual domain
+const WEBSITE_URL = "https://www.zenvioweb.in"; // Change to your actual domain
 const CONTACT_EMAIL = "contact.zenvio@gmail.com";
 const GOVERNING_LAW_STATE = "Maharashtra"; // Example: Your company's legal jurisdiction (State/Province)
 const GOVERNING_LAW_COUNTRY = "India"; // Example: Your company's legal jurisdiction (Country)
