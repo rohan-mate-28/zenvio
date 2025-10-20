@@ -12,10 +12,8 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: FaFacebookF, href: "#", label: "Facebook" },
-    { icon: FaTwitter, href: "#", label: "Twitter" },
-    { icon: FaLinkedinIn, href: "#", label: "LinkedIn" },
-    { icon: FaInstagram, href: "#", label: "Instagram" },
+    { icon: FaFacebookF, href: "https://www.facebook.com/share/17avP1rWag/", label: "Facebook" },
+    { icon: FaInstagram, href: "https://www.instagram.com/zenvioweb/", label: "Instagram" },
   ];
 
   return (
