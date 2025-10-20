@@ -2,91 +2,86 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const projects = [
   {
     id: 1,
-    title: "GYM  ",
+    title: "GYM Website",
     image: "/gymwebport.png",
     live: "https://gymwebport.netlify.app/",
   },
   {
     id: 2,
-    title: "CA Firm  ",
-    image:
-      "/cawebport.png",
+    title: "CA Firm Website",
+    image: "/cawebport.png",
     live: "https://cawebport.netlify.app/",
   },
   {
     id: 3,
-    title: "Real Estate  ",
-    image:
-      "/realestate-webport.png",
+    title: "Real Estate Website",
+    image: "/realestate-webport.png",
     live: "https://realestate-webport.netlify.app/",
-  }
-   
+  },
 ];
 
-const PortfolioSection = () => {
+export default function PortfolioSection() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const imageRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
-    // Detect mobile
-    setIsMobile(window.innerWidth <= 768);
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
     <section id="portfolio" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-6"
-        >
-          My Projects
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-gray-600 mb-12 max-w-2xl mx-auto"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold mb-6">My Projects</h2>
+        <p className="text-gray-600 mb-12 max-w-2xl mx-auto">
           A collection of my recent work — websites, apps, and tools I’ve built
           for clients and personal projects.
-        </motion.p>
+        </p>
 
-        {/* Projects Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              className="relative group rounded-2xl shadow-lg overflow-hidden bg-white"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              className="relative group rounded-2xl shadow-lg overflow-hidden bg-white cursor-pointer h-80"
               onMouseEnter={() => !isMobile && setActiveProject(project.id)}
               onMouseLeave={() => !isMobile && setActiveProject(null)}
               onTouchStart={() => isMobile && setActiveProject(project.id)}
               onTouchEnd={() => isMobile && setActiveProject(null)}
             >
-              {/* Image container */}
-              <div className="h-72 overflow-hidden">
+              {/* Image Container */}
+              <div
+                className="relative w-full h-full overflow-hidden"
+                ref={(el) => { imageRefs.current[index] = el; }} // ✅ just assign, no return
+              >
                 <motion.div
                   animate={{
-                    y:
-                      activeProject === project.id
-                        ? -400 // scroll up
-                        : 0,
+                    y: (() => {
+                      const container = imageRefs.current[index];
+                      if (!container) return 0;
+
+                      const containerHeight = container.clientHeight;
+                      const img = container.querySelector("img");
+                      if (!img) return 0;
+
+                      const imageHeight = img.clientHeight;
+                      const diff = imageHeight - containerHeight;
+
+                      // Full image scroll
+                      return activeProject === project.id ? -diff : 0;
+                    })(),
                   }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
+                  transition={{
+                    duration: 10, // slow
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
                   <Image
                     src={project.image}
@@ -114,12 +109,10 @@ const PortfolioSection = () => {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default PortfolioSection;
+}
