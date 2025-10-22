@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ReduxProvider } from "@/redux/Provider";
-import RazorpayScriptProvider from "@/components/RazorpayScriptProvider"; // ✅
+import RazorpayScriptProvider from "@/components/RazorpayScriptProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ✅ SEO Metadata
+// ✅ Updated metadata with all favicon formats
 export const metadata: Metadata = {
   title: "ZenVio | Project Management App",
   description:
@@ -28,7 +28,8 @@ export const metadata: Metadata = {
     "team management",
     "ZenVio",
   ],
-  metadataBase: new URL("https://zenvioweb.in/"), // replace with real domain
+  metadataBase: new URL("https://zenvioweb.in/"),
+
   openGraph: {
     title: "ZenVio | Project Management App",
     description:
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "ZenVio",
     images: [
       {
-        url: "/preview.png", // store in public/
+        url: "/preview.png",
         width: 1200,
         height: 630,
         alt: "ZenVio Project Management App",
@@ -45,6 +46,7 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "ZenVio | Project Management App",
@@ -52,11 +54,23 @@ export const metadata: Metadata = {
       "ZenVio helps businesses and teams manage projects, clients, and payments efficiently.",
     images: ["/preview.png"],
   },
+
+  // ✅ Complete multi-format icon setup
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" },
+    ],
+    other: [
+      { rel: "manifest", url: "/site.webmanifest" },
+      { rel: "mask-icon", url: "/favicon.svg", color: "#000000" },
+    ],
   },
 };
-
 
 // ✅ Root Layout
 export default function RootLayout({
@@ -66,12 +80,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReduxProvider>
           <Navbar />
-          <RazorpayScriptProvider /> {/* ✅ Script injected client-side */}
+          <RazorpayScriptProvider />
           {children}
           <Footer />
         </ReduxProvider>
